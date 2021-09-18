@@ -5,6 +5,8 @@ import Navigation from './components/Navigation/Navigation';
 import FaceRecgonition from './components/FaceRecgonition/FaceRecgonition';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
+import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import './App.css';
 
@@ -30,7 +32,9 @@ class App extends Component {
     this.state = {
       input: '',
       imageUrl: '',
-      box: {}
+      box: {},
+      route: 'signin',
+      isSignedIn: false
     }
   }
   
@@ -68,20 +72,41 @@ class App extends Component {
       });
   }
   
+  onRouteChange = (route) => {
+    if (route === 'signout') {
+      this.setState({ isSignedIn: false });
+    } else if (route === 'home') {
+      this.setState({ isSignedIn: true });
+    }
+    this.setState({ route: route });
+  }
+  
   render () {
+    const { isSignedIn, imageUrl, route, box } = this.state;
     return (
       <div className="App">
         <Particles className="particles"
           params={ particlesOptions }
         />
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={ this.onInputChange }
-          onButtonSubmit={ this.onButtonSubmit }
-        />
-        <FaceRecgonition box={ this.state.box } imageUrl={ this.state.imageUrl } />
+        <Navigation isSignedIn={ isSignedIn } onRouteChange={ this.onRouteChange } />
+        {
+          route === 'home' ?
+            <div>
+              <Logo />
+              <Rank />
+              <ImageLinkForm
+                onInputChange={ this.onInputChange }
+                onButtonSubmit={ this.onButtonSubmit }
+              />
+              <FaceRecgonition box={ box } imageUrl={ imageUrl } />
+            </div>
+          : (
+            route === 'signin' ?
+              <Signin onRouteChange={ this.onRouteChange } />
+            :
+              <Register onRouteChange={ this.onRouteChange } />
+            )
+        }
       </div>
     );
   }
