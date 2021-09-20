@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
+    "@testing-library/react": "^12.1.0",
     "@testing-library/user-event": "^13.2.1",
     "clarifai": "^2.9.1",
     "clarifai-nodejs-grpc": "^7.8.0",
@@ -15,7 +15,7 @@
     "react-tilt": "^0.1.4",
     "tachyons": "^4.12.0",
     "tsparticles": "^1.34.1",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -42,6 +42,6 @@
     ]
   },
   "devDependencies": {
-    "flow-bin": "^0.160.0"
+    "flow-bin": "^0.160.1"
   }
 }
