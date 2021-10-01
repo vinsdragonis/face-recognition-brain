@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import FaceRecgonition from './components/FaceRecgonition/FaceRecgonition';
 import Logo from './components/Logo/Logo';
@@ -9,10 +8,6 @@ import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import './App.css';
-
-const app = new Clarifai.App({
-  apiKey: 'd7a1e00a024a4344ac26a4ab52bd9593'
-});
 
 const particlesOptions = {
   particles: {
@@ -83,7 +78,14 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input })
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      fetch("http://localhost:3000/imageUrl", {
+        method: 'post',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify({
+          input: this.state.input
+        })
+      })
+      .then(response => response.json())
       .then((response) => {
         if (response) {
           fetch("http://localhost:3000/image", {
