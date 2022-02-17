@@ -43,6 +43,6 @@
     ]
   },
   "devDependencies": {
-    "flow-bin": "^0.171.0"
+    "flow-bin": "^0.172.0"
   }
 }
